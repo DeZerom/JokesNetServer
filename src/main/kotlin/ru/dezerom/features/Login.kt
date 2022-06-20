@@ -1,18 +1,19 @@
-package ru.dezerom.plugins
+package ru.dezerom.features
 
 import io.ktor.http.*
 import io.ktor.server.routing.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
+import ru.dezerom.features.LoginRemote
 
 fun Application.configureRouting() {
 
     routing {
         post("/login") {
-            val login = call.parameters["login"]
-            val pass = call.parameters["pass"]
+            val credentials = call.receive<LoginRemote>()
 
-            if (login == "admin" && pass == "admin") {
+            if (credentials.login == "admin" && credentials.pass == "admin") {
                 call.respondText("ok", status = HttpStatusCode.OK)
             } else {
                 call.respondText("not OK", status = HttpStatusCode.Unauthorized)
