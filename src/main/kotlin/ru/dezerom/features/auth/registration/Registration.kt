@@ -6,8 +6,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ru.dezerom.features.auth.Credentials
-import java.util.logging.Level
-import java.util.logging.Logger
 
 fun Application.configureRegistration() {
 
@@ -15,7 +13,6 @@ fun Application.configureRegistration() {
         post("/registration") {
             val credentials = call.receive<Credentials>()
             val registrationController = RegistrationController()
-            Logger.getAnonymousLogger().log(Level.INFO, "$credentials")
 
             val registrationResponse = RegistrationResponse(registrationController.registerNewUser(credentials))
             if (registrationResponse.status != RegistrationResponseStatus.OK)

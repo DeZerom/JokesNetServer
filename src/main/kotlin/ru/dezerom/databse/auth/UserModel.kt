@@ -2,9 +2,7 @@ package ru.dezerom.databse.auth
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object UserModel: Table(name = "users") {
@@ -36,6 +34,5 @@ object UserModel: Table(name = "users") {
                 salt = userModel[salt]
             )
         }
-
     }
 }

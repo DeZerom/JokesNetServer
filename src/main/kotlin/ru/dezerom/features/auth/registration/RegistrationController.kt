@@ -4,6 +4,7 @@ import io.ktor.util.*
 import ru.dezerom.databse.auth.UserDTO
 import ru.dezerom.databse.auth.UserModel
 import ru.dezerom.features.auth.Credentials
+import ru.dezerom.utils.sha256
 import java.util.UUID
 
 class RegistrationController {
@@ -14,15 +15,12 @@ class RegistrationController {
         if (isUserExists) return RegistrationResponseStatus.ACCOUNT_EXISTS
 
         val salt = UUID.randomUUID().toString().substring(0, 8)
-        val sha = getDigestFunction("SHA256") { salt }
         val userDTO = UserDTO(
             login = credentials.login,
-            password = sha.invoke(credentials.pass).decodeToString(),
+            password = credentials.pass.sha256(salt),
             salt = salt
         )
         UserModel.insert(userDTO)
-
         return RegistrationResponseStatus.OK
     }
-
 }

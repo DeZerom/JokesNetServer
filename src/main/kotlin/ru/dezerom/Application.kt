@@ -12,10 +12,7 @@ import ru.dezerom.plugins.*
 fun main() {
     Database.connect("jdbc:postgresql://localhost:5432/postgres",
         driver = "org.postgresql.Driver",
-        password = "D3mI|)Postgre", user = "postgres",
-        databaseConfig = DatabaseConfig.invoke {
-            defaultSchema = Schema("JokesNet")
-        }
+        password = "D3mI|)Postgre", user = "postgres"
     )
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
