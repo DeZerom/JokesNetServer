@@ -8,3 +8,7 @@ fun String.sha256(salt: String): String {
     val digest = md.digest(bytes)
     return digest.fold("") { str, it -> str + "%02x".format(it) }
 }
+
+fun String.sha256(): String {
+    return this.sha256("")
+}

@@ -1,4 +1,4 @@
-package ru.dezerom.databse.auth
+package ru.dezerom.databse.auth.user
 
 data class UserDTO(
     val login: String,

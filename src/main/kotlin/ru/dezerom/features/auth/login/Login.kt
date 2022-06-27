@@ -13,10 +13,13 @@ fun Application.configureLogin() {
         post("/login") {
             val credentials = call.receive<Credentials>()
 
-            if (credentials.login == "admin" && credentials.pass == "admin") {
-                call.respondText("ok", status = HttpStatusCode.OK)
-            } else {
-                call.respondText("not OK", status = HttpStatusCode.Unauthorized)
+            val controller = LoginController()
+            val token = controller.login(credentials)
+
+            token?.let {
+                call.respond(HttpStatusCode.OK, LoginResponse(token))
+            } ?: run {
+                call.response.status(HttpStatusCode.Forbidden)
             }
         }
     }

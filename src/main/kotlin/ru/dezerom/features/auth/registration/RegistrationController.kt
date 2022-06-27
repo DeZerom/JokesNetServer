@@ -1,8 +1,7 @@
 package ru.dezerom.features.auth.registration
 
-import io.ktor.util.*
-import ru.dezerom.databse.auth.UserDTO
-import ru.dezerom.databse.auth.UserModel
+import ru.dezerom.databse.auth.user.UserDTO
+import ru.dezerom.databse.auth.user.UserModel
 import ru.dezerom.features.auth.Credentials
 import ru.dezerom.utils.sha256
 import java.util.UUID
