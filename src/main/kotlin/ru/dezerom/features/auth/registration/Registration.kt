@@ -14,11 +14,7 @@ fun Application.configureRegistration() {
             val credentials = call.receive<Credentials>()
             val registrationController = RegistrationController()
 
-            val registrationResponse = RegistrationResponse(registrationController.registerNewUser(credentials))
-            if (registrationResponse.status != RegistrationResponseStatus.OK)
-                call.respond(HttpStatusCode.Forbidden, registrationResponse)
-            else
-                call.respond(HttpStatusCode.OK, registrationResponse)
+            call.response.status(registrationController.registerNewUser(credentials))
         }
     }
 

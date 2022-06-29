@@ -1,5 +1,6 @@
 package ru.dezerom.features.auth.registration
 
+import io.ktor.http.*
 import ru.dezerom.databse.auth.user.UserDTO
 import ru.dezerom.databse.auth.user.UserModel
 import ru.dezerom.features.auth.Credentials
@@ -8,10 +9,10 @@ import java.util.UUID
 
 class RegistrationController {
 
-    suspend fun registerNewUser(credentials: Credentials): RegistrationResponseStatus {
+    suspend fun registerNewUser(credentials: Credentials): HttpStatusCode {
         val isUserExists = UserModel.fetchUser(credentials.login) != null
 
-        if (isUserExists) return RegistrationResponseStatus.ACCOUNT_EXISTS
+        if (isUserExists) return HttpStatusCode.Forbidden
 
         val salt = UUID.randomUUID().toString().substring(0, 8)
         val userDTO = UserDTO(
@@ -20,6 +21,6 @@ class RegistrationController {
             salt = salt
         )
         UserModel.insert(userDTO)
-        return RegistrationResponseStatus.OK
+        return HttpStatusCode.OK
     }
 }
