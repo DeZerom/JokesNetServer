@@ -3,6 +3,7 @@ package ru.dezerom.databse.auth.token
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 object TokenModel: Table(name = "tokens") {
@@ -17,6 +18,14 @@ object TokenModel: Table(name = "tokens") {
                 it[userLogin] = tokenDTO.userLogin
                 it[token] = tokenDTO.token
             }
+        }
+    }
+
+    suspend fun checkToken(token: String): Boolean {
+        return newSuspendedTransaction(Dispatchers.IO) {
+            select {
+                TokenModel.token eq token
+            }.singleOrNull()?.let { true } ?: false
         }
     }
 }
