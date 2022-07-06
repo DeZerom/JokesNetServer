@@ -8,6 +8,8 @@ import org.jetbrains.exposed.sql.Schema
 import ru.dezerom.features.auth.check_token.configureCheckToken
 import ru.dezerom.features.auth.login.configureLogin
 import ru.dezerom.features.auth.registration.configureRegistration
+import ru.dezerom.features.jokes.add.configureJokeAdding
+import ru.dezerom.features.profile.configureProfile
 import ru.dezerom.plugins.*
 
 fun main() {
@@ -21,6 +23,8 @@ fun main() {
         configureLogin()
         configureRegistration()
         configureCheckToken()
+        configureProfile()
+        configureJokeAdding()
         configureSerialization()
     }.start(wait = true)
 }

@@ -12,3 +12,5 @@ fun String.sha256(salt: String): String {
 fun String.sha256(): String {
     return this.sha256("")
 }
+
+const val AUTH_HEADER = "Authorization"

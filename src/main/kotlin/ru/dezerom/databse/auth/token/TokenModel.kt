@@ -28,4 +28,18 @@ object TokenModel: Table(name = "tokens") {
             }.singleOrNull()?.let { true } ?: false
         }
     }
+
+    suspend fun selectToken(token: String): TokenDTO? {
+        return newSuspendedTransaction(Dispatchers.IO) {
+            val model = select {
+                TokenModel.token eq token
+            }.singleOrNull() ?: return@newSuspendedTransaction null
+
+            TokenDTO(
+                id = model[TokenModel.id],
+                userLogin = model[TokenModel.userLogin],
+                token = model[TokenModel.token]
+            )
+        }
+    }
 }
