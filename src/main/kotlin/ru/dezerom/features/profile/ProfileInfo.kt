@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class ProfileInfo(
-    val login: String
+    val login: String,
+    val jokesAdded: Int
 )

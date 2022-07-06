@@ -3,6 +3,7 @@ package ru.dezerom.databse.jokes
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 object JokeModel: Table(name = "jokes") {
@@ -20,4 +21,11 @@ object JokeModel: Table(name = "jokes") {
         }
     }
 
+    suspend fun countUsersJokes(login: String): Int {
+        return newSuspendedTransaction(Dispatchers.IO) {
+            select {
+                creator eq login
+            }.count().toInt()
+        }
+    }
 }
