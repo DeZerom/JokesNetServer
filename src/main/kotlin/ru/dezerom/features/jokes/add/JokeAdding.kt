@@ -8,12 +8,8 @@ import ru.dezerom.utils.AUTH_HEADER
 fun Application.configureJokeAdding() {
     routing {
         post("jokes/add") {
-            val joke = call.receive<NewJoke>()
-            val token = call.request.headers[AUTH_HEADER] ?: ""
-
             val controller = JokeAddingController()
-
-            call.response.status(controller.addJoke(joke, token))
+            controller.addJoke(call)
         }
     }
 }

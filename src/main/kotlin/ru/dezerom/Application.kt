@@ -19,7 +19,7 @@ fun main() {
         password = "D3mI|)Postgre", user = "postgres"
     )
 
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+    embeddedServer(Netty, port = 12345, host = "0.0.0.0") {
         configureLogin()
         configureRegistration()
         configureCheckToken()
